@@ -169,7 +169,7 @@
 								</ul>
 							</div>
 							<div>
-								<p id="result"></p>
+								<center><p id="result"></p></center>
 							</div>
 						</div>
 					</div>
@@ -204,13 +204,13 @@
 					    method: "POST",
 					    data: {
 					    	'email': $('#email').val(),
-					    	'subject': $('#subject').val(),
+					    	'name': $('#name').val(),
 					    	'_format': 'plain',
 					    	'message': $('#message').val()
 					    },
 					    dataType: "json",
 					    success: function() {
-					    	$('#result').text('Successfully sent message.')
+					    	$('#result').text('Successfully sent message. We will reply within 24 hours.')
 					    },
 					    error: function() {
 					    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
