@@ -199,6 +199,8 @@
 					    method: "POST",
 					    data: {
 					    	'email': $('#email').val(),
+						'_replyto': $('#email').val(),
+					    	'_subject': '[Lightning Security] Contact from ' + $('#name').val(),
 					    	'name': $('#name').val(),
 					    	'_format': 'plain',
 					    	'message': $('#message').val()
