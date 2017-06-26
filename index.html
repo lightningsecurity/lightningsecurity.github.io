@@ -165,7 +165,7 @@
 							<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="2"></textarea></div>
 							<div class="12u$">
 								<ul class="actions">
-									<input type="submit" value="Get Started" class="fit special" onclick="onSubmitForm()" />
+									<input type="submit" value="Submit" class="fit special" onclick="onSubmitForm()" />
 								</ul>
 							</div>
 							<div>
@@ -210,7 +210,7 @@
 					    },
 					    dataType: "json",
 					    success: function() {
-					    	$('#result').text('Successfully sent message. We will reply within 24 hours.')
+					    	$('#result').text('Thanks for contacting us! We will reply within 24 hours.')
 					    },
 					    error: function() {
 					    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
