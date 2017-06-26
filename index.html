@@ -27,7 +27,7 @@
 									<li><a href="#five">Get Started</a></li>
 								</ul>
 							</li>
-							<li><a class="button special" onclick="$('html, body').animate({ scrollTop: $(document).height() }, 'slow');">Get Started</a></li>
+							<li><a class="button special" href="#five">Get Started</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -58,7 +58,7 @@
 									</header>
 								</div>
 								<div class="4u 12u$(medium)">
-									<p>Our team has disclosed vulnerabilities in companies ranging from startups to Fortune 500 companies. These include Google, Yahoo, Uber, Salesforce, GitHub, Instacart, GrubHub, the United States Deparment of Defense, Army, and Air Force.</p>
+									<p>Our team has disclosed vulnerabilities in companies ranging from startups to Fortune 500 companies. These include Google, Yahoo, Uber, Salesforce, GitHub, Instacart, GrubHub, the United States Deparment of Defense, the United States Army, and the United States Air Force.</p>
 								</div>
 								<div class="4u$ 12u$(medium)">
 									<p>Our seasoned team will leverage its expertise to ensure that your assets are secure and protected from hackers.</p>
@@ -77,9 +77,10 @@
 							<h2>Comprehensive testing</h2>
 							<p></p>
 						</header>
-						<p>Applying our experience, we will attempt to discover any possible vulnerability that might exist on your website.</p>
+						<p>Our team will test your assets for any potential vulnerabilities. These include common vulnerability types such as SQL injection, Cross Site Scripting, and Remote Code Execution, along with many other vulnerability types.</p>
+						<p>Applying our out-of-the-box techniques, we will attempt to find any possible components of your assets which an attacker could exploit.</p>
 						<ul class="actions">
-							<li><a href="#" class="button">Learn More</a></li>
+							<li><a href="#four" class="button scrolly">Next: Our Process</a></li>
 						</ul>
 					</div>
 					<a href="#four" class="goto-next scrolly">Next</a>
@@ -151,18 +152,26 @@
 				</section>
 
 			<!-- Five -->
-				<section id="five" class="wrapper style2 special fade">
+				<section id="five" style="padding:2em 0em 0em 0em" class="wrapper style2 special fade">
 					<div class="container">
 						<header>
 							<h2>Get Started Today</h2>
 							<p>Contact us for a quote and get results lightning fast.</p>
 						</header>
-						<form method="post" action="#" class="container 50%">
-							<div class="row uniform 50%">
-								<div class="8u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
-								<div class="4u$ 12u$(xsmall)"><input type="submit" value="Get Started" class="fit special" /></div>
+						<div class="row uniform">
+							<div class="6u 12u$(xsmall)"><input type="text" name="name" id="name" placeholder="Name" /></div>
+							<div class="6u$ 12u$(xsmall)"><input type="email" name="_reply" id="email" placeholder="Email" /></div>
+							<input type="hidden" name="_format" value="plain" />
+							<div class="12u$"><textarea name="message" id="message" placeholder="Message" rows="2"></textarea></div>
+							<div class="12u$">
+								<ul class="actions">
+									<input type="submit" value="Get Started" class="fit special" onclick="onSubmitForm()" />
+								</ul>
 							</div>
-						</form>
+							<div>
+								<p id="result"></p>
+							</div>
+						</div>
 					</div>
 				</section>
 
@@ -187,6 +196,28 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script>
+				var email = 'jackhcable@gmail.com'
+				function onSubmitForm() {
+					$.ajax({
+					    url: "https://formspree.io/" + email, 
+					    method: "POST",
+					    data: {
+					    	'email': $('#email').val(),
+					    	'subject': $('#subject').val(),
+					    	'_format': 'plain',
+					    	'message': $('#message').val()
+					    },
+					    dataType: "json",
+					    success: function() {
+					    	$('#result').text('Successfully sent message.')
+					    },
+					    error: function() {
+					    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
+					    }
+					});
+				}
+			</script>
 
 	</body>
 </html>
