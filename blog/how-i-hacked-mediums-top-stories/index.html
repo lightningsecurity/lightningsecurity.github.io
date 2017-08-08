@@ -50,7 +50,7 @@
 							<section id="content" class="blog-content">
 								<p>Note: This is being published with the permission of Medium under the responsible disclosure policy. The vulnerability is now fixed.</p>
 								<p>If you&rsquo;re familiar with Medium, you&rsquo;ll know that any user can recommend a post as a way of &ldquo;liking&rdquo; it. Top stories, sorted by the number of recommendations, are then shown in Medium&rsquo;s <a href="https://medium.com/top-stories" target="_blank" data-href="https://medium.com/top-stories">&ldquo;top stories&rdquo;</a> section.</p>
-								<center class="blog-image"><div class="5u  6u$(xsmall)"><span class="image fit"><img src="https://cdn-images-1.medium.com/max/800/1*cTu7Gt_PBD5DoOfsL7B83A.png" alt="" /></span></div></center>
+								<img src="https://cdn-images-1.medium.com/max/800/1*cTu7Gt_PBD5DoOfsL7B83A.png" alt="" />
 								<p>I discovered Medium&rsquo;s <a href="https://medium.com/policy/mediums-bug-bounty-disclosure-program-34b1c80764c2#.9d0bn1jkd" target="_blank" data-href="https://medium.com/policy/mediums-bug-bounty-disclosure-program-34b1c80764c2#.9d0bn1jkd">Bug Bounty Program</a> and decided that I&rsquo;d take a look around. One common issue in websites is known as a race condition, which allows users to perform actions more than allowed. Race conditions can be a huge problem for services dealing with money, and even affected <a href="http://sakurity.com/blog/2015/05/21/starbucks.html" target="_blank" rel="noopener" data-href="http://sakurity.com/blog/2015/05/21/starbucks.html">Starbucks</a> to add an infinite balance to a gift card. It works like this:</p>
 								<ol>
 								<li>A user makes, say, 10 requests to a website to perform an action at the same exact time. In the context of a bank account, let&rsquo;s say this user sends $10 10 times to User B, while they only have $10 in their bank account.</li>
@@ -58,9 +58,9 @@
 								<li>The user has now sent 10 $10 transactions, which means that they have -$90 in their account. User B, then has $100 in their account, even though there was only $10 to start with.</li>
 								</ol>
 								<p>I discovered the same vulnerability in Medium. After concurrently recommending a comment 10 times, I noticed that Medium didn&rsquo;t check for other requests at the same time:</p>
-								<center class="blog-image"><div class="5u  6u$(xsmall)"><span class="image fit"><img src="https://cdn-images-1.medium.com/max/800/1*s6yybl3mkHoLnceOh9x0MA.png" alt="" /></span></div></center>
+								<img src="https://cdn-images-1.medium.com/max/800/1*s6yybl3mkHoLnceOh9x0MA.png" alt="" />
 								<p>Given that Medium sorts top stories by total number of recommendations, I was able to boost my story to one of the top spots.</p>
-								<center class="blog-image"><div class="5u  6u$(xsmall)"><span class="image fit"><img src="https://cdn-images-1.medium.com/max/800/1*E9DLpZmwgoKBL7AbkaCW0g.png" alt="" /></span></div></center>
+								<img src="https://cdn-images-1.medium.com/max/800/1*E9DLpZmwgoKBL7AbkaCW0g.png" alt="" />
 								<p>Internet fame forever!</p>
 								<div><hr /></div>
 								<p>Timeline:</p>
@@ -83,7 +83,7 @@
 				<section id="five" style="padding:2em 1em 0em 1em" class="wrapper style2 special fade">
 					<div class="container">
 						<header>
-							<h2>Like our findings? Get Started Today.</h2>
+							<h2>Like our findings? They could be yours.</h2>
 							<p>Contact us for a quote and get results lightning fast.</p>
 						</header>
 						<div class="row uniform">
