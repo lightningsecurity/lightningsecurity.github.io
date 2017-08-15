@@ -26,6 +26,13 @@
 	border-radius: 10px;
 }
 
+.blog-content .large {
+	width:75%;
+}
+
+.blog-content .small {
+	width:25%;
+}
 
 @media only screen and (max-width: 480px) {
 	  
