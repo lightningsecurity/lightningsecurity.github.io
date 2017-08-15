@@ -41,7 +41,11 @@
 	}
 
 	.blog-content img {
-		width:100%;
+		width:100% !important;
+	}
+
+	.giant {
+		width:150%;
 	}
 }
 /* Reset */
