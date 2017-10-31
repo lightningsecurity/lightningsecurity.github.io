@@ -50,7 +50,7 @@
 					<div class="container">
 						<header class="major">
 							<h1 class="blog-title" style="font-size:1.75em">Exploiting and Protecting Against Race Conditions</h1>
-							<p>Jack Cable - October 31, 2017</p>
+							<p>Jack Cable - November 1, 2017</p>
 						</header>
 
 						<!-- Content -->
@@ -76,7 +76,7 @@
 								<p id="error"></p>
 								<p>Your account balance: $<span id="your-balance"></span> - <a href="javascript:updateBalance()">Refresh balance</a></p>
 								<p>Your friend&#39;s account: $<span id="friends-balance"></span></p>
-								<div style="display:inline"><label for="amount">Amount to send:</label><input id="amount" type="text" style="width:150px" value="75"></input><br><a href="javascript:send(true)" style="width:200px;" class="button special small">Send to friend</a><a style="margin-left:20px; width:200px;" href="javascript:send(false)" class="button special small">Send from friend</a><a style="margin-left:20px; width:200px;" href="javascript:reset()" class="button small">Reset</a></div>
+								<div style="display:inline"><label for="amount">Amount to send:</label><input id="amount" type="text" style="width:150px" value="75"></input><br><a href="javascript:send(true)" style="width:200px" class="button special small bank-button">Send to friend</a><a style="margin-left:20px; width:200px;" href="javascript:send(false)" class="button special small bank-button">Send from friend</a><a style="margin-left:20px; width:200px;" href="javascript:reset()" class="button small bank-button">Reset</a></div>
 								<br><br><p>It might be easy enough when there&#39;s a 1-second delay for all requests. What about a more realistic scenario, where it&#39;s just a matter of milliseconds? I encourage you to test this out by firing up <a href='https://portswigger.net/burp/help/suite_gettingstarted.html' target='_blank'>Burp Suite</a> and doing the following.</p>
 <ol start='' >
 <li>Turn on intercept mode and intercept the request to send money.</li>
@@ -143,6 +143,7 @@
 									var token = guid();
 									document.cookie = "token=" + token;
 									jQuery.postJSON(API + "session", { token: token }, function(data) {
+										updateBalance();
 									})
 								}
 
