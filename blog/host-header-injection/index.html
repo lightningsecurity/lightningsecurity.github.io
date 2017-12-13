@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Password Not Provided - Compromising Any Flurry User's Account | Lightning Security</title>
+		<title>Don't Trust the Host Header for Sending Password Reset Emails | Lightning Security</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="../../assets/css/main.css" />
 
-		<meta name="description" content="Password Not Provided - Compromising Any Flurry User's Account [Yahoo Bug Bounty]">
+		<meta name="description" content="Don't Trust the Host Header for Sending Password Reset Emails">
 
-		<meta name="og:title" content="Password Not Provided - Compromising Any Flurry User's Account [Yahoo Bug Bounty]">
+		<meta name="og:title" content="Don't Trust the Host Header for Sending Password Reset Emails">
 		<meta property="og:image" content="http://lightningsecurity.io/images/banner.jpg">
 
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -24,6 +24,7 @@
 		  ga('send', 'pageview');
 
 		</script>
+		<script src="../../assets/js/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -43,56 +44,43 @@
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h1 class="blog-title" style="font-size:1.75em">Password Not Provided - Compromising Any Flurry User's Account [Yahoo Bug Bounty]</h1>
-							<p>Jack Cable - August 15, 2017</p>
+							<h1 class="blog-title" style="font-size:1.75em">Don't Trust the Host Header for Sending Password Reset Emails</h1>
+							<p>Jack Cable - December 13, 2017</p>
 						</header>
 
 						<!-- Content -->
 							<section id="content" class="blog-content">
-								<p>Since this was a simple bug, this is going to be a short write-up. What I hope makes this interesting is the impact, as this could have trivially allowed an attacker access to every Flurry account.</p>
+<p>Let&#39;s say you&#39;re building password reset functionality into your website. Since your website url might change in the future, you want to dynamically generate the link in the password reset email to match your server&#39;s url. No problem, a quick Google search returns <a href='https://stackoverflow.com/questions/6768793/get-the-full-url-in-php' target="_blank">this StackOverflow question</a>  for getting the server&#39;s url in PHP. You add <code>$_SERVER[&#39;HTTP_HOST&#39;]</code> to your code and think nothing of it.</p>
+<p>If you haven&#39;t yet caught it, this is a really bad practice. The <code>Host</code> header is provided by the client, meaning an attacker could embed their own website in a password reset email, compromising any user&#39;s account. An attack scenario would look something like this:</p>
+<ol>
+<li>The attacker identifies a target user&#39;s email address.</li>
+<li>The attacker modifies the host header of the request to reset the target&#39;s password to their own domain.</li>
+<li>The target receives the following email:
+<img class="large" src="../images/post4-screenshot1.png" /></li>
+<li>Trusting the company, they click the reset link. As the link is formed with the host header, this instead links to the attacker&#39;s website. When the target visits this site, their password reset token is sent to the attacker.</li>
+<li>The attacker now resets the target&#39;s password using their password reset token.</li>
 
-								<p>Let's begin...</p>
-
-								<p>In taking a look at Yahoo’s bug bounty program, I decided to check out Yahoo's Flurry platform, as it likely doesn’t get as much attention as core Yahoo.</p>
-
-								<p>The first step to testing an application, of course, is to create an account. Flurry has two options for creating an account, either to sign up with an email address or with an existing Yahoo account.</p>
-
-								<p>I chose to create my account with my Yahoo account, and followed the steps to do so. In the final step to create the account, I immediately noticed something suspicious. <em>Very suspicious.</em> Let's see if you can spot it:</p>
-
-								<img style="padding:10px; background-color: white;" class="large" src="../images/post2-screenshot1.png" />
-
-								<p>Did you catch it? The value of the password is being explicitly set to the string "not-provided". This couldn’t possibly actually be the user’s password, right?</p>
-
-								<p>Let’s find out. If we create a new user by email, the same password parameter is being used. So unless there’s a specific blacklist for "not-provided", then that could very well be the password for every user created with a Yahoo account. Logging in using "not-provided" as my password:</p>
-
-								<img style="padding:10px; background-color: white;" class="small" src="../images/post2-screenshot2.png" />
-
-								<p>To my surprise, it worked. This allowed for an attacker to log in to any Flurry account connected to Yahoo by entering their email and the password "not-provided". After testing with another brand new account, I promptly reported this to Yahoo, where they quickly triaged it as critical.</p>
-
-								<h3 id="impact">Impact</h3>
-
-								<p>As of 2017, Flurry was used in <a href="http://flurrymobile.tumblr.com/post/162044023226/play-longer-spend-more-gamers-become-serious" target="_blank">940,000 apps</a> and installed on 2.1 billion devices. Even if just some percent of developers have their Yahoo account connected, this would compromise the account of many app developers. Further, as Flurry involves an advertising network, this could have lead to stolen funds from apps.</p>
-
-								<h3 id="resolution">Resolution</h3>
-
-								<p>Yahoo provided a fix for this just 5 hours after the report by disabling accounts connected to Yahoo from logging in by email. I verified the fix, but I encourage you to double check it and see if you can find a bypass!</p>
-
-								<p>This type of misconfiguration might not be so uncommon. A simple oversight in specifying a user’s password lead to there being a "universal" password in the site. Though the developer intended to communicate that the user should not have a password set, verification was missing to ensure that "not-provided" could not actually be used as a password. This might be interesting to keep an eye out for in other OAuth implementations.</p>
-
-								<p>Once again, a fantastic response by Yahoo on this one.</p>
-								<hr>
-								<h3 id="timeline">Timeline</h3>
-
-								<p>6/30/17 17:53 UTC - Reported to Yahoo</p>
-								<p>6/30/17 19:25 UTC - Initial response + triage by Yahoo</p>
-								<p>6/30/17 22:51 UTC - Bug fix released by Yahoo</p>
-								<p>7/01/17 - Bounty decision pending</p>
-								<p>7/20/17 - Bounty awarded</p><br>
+</ol>
+<p>Unfortunately, this attack isn&#39;t purely theoretical, and I have found it in 4 bug bounty programs over the past few months.</p>
+<h3>Example - Mavenlink</h3>
+<p>On a whim, I decided to test for this vulnerability on Mavenlink, following their <a href='https://hackerone.com/mavenlink' target="_blank">public HackerOne program</a>.</p>
+<p>Mavenlink allows companies to register a subdomain of mavenlink.com to host their content, so it makes sense that they would need a way to dynamically determine the company&#39;s subdomain.</p>
+<p>I quickly noticed that I could set the host header to any subdomain of mavenlink.com, which would be reflected in the email. However, changing the domain from mavenlink.com would return an error and not send an email.</p>
+<p>At first, this seemed relatively secure. I couldn&#39;t find a way to inject my own domain — sure, I could add a random subdomain of mavenlink.com, but all of these redirected to the proper page.</p>
+<p>I then started testing special characters. After a few tries, I hit gold: the server would accept a question mark in the header, so I could follow my domain with a question mark to make that the base url:</p>
+<p><code>Host: example.com?.mavenlink.com</code></p>
+<p>This allowed me to steal any user&#39;s password reset token from the email:</p>
+<img class="large" src="../images/post4-screenshot2.png" />
+<p>View the disclosed report at <a href='https://hackerone.com/reports/281575' target='_blank' >https://hackerone.com/reports/281575.</a></p>
+<h3>Conclusion</h3>
+<p>Don&#39;t trust the <code>Host</code> header for sending password reset emails. Ever. And you probably shouldn&#39;t be trusting it for anything else, either.</p>
+<p>Instead, if you need to account for a dynamic url, it&#39;s a good idea to store the host as a server-side variable.</p>
+								<br><br><br>
 								<center><a class="twitter-follow-button"
 								  href="https://twitter.com/jackhcable">
 								Follow @jackhcable</a></center>
 							</section>
-
+							
 					</div>
 				</div>
 
@@ -131,7 +119,6 @@
 		</div>
 
 		<!-- Scripts -->
-			<script src="../../assets/js/jquery.min.js"></script>
 			<script src="../../assets/js/jquery.scrolly.min.js"></script>
 			<script src="../../assets/js/jquery.dropotron.min.js"></script>
 			<script src="../../assets/js/jquery.scrollex.min.js"></script>
@@ -171,7 +158,7 @@
 			  js.id = id;
 			  js.src = "https://platform.twitter.com/widgets.js";
 			  fjs.parentNode.insertBefore(js, fjs);
-
+			  //seriously, why are you reading comments in some random script tag?
 			  t._e = [];
 			  t.ready = function(f) {
 			    t._e.push(f);
