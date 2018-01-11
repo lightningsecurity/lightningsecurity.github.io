@@ -7,6 +7,12 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
+#lightning-logo {
+    transition: color 0.3s ease-in-out;
+    -webkit-transition: color 0.3s ease-in-out;
+    -moz-transition: color 0.3s ease-in-out;
+}
+
 .style2-border:after {
 	background: #1c1d26 !important;
 }

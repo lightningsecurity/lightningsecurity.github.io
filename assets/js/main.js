@@ -19,6 +19,15 @@
 		var	$window = $(window),
 			$body = $('body');
 
+		// Custom
+
+		$('#title-label').mouseenter(function(){
+			console.log('test')
+		  $('#lightning-logo').css('color', '#e44c65');
+		}).mouseout(function(){
+		  $('#lightning-logo').css('color', 'white');
+		});
+
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
 
