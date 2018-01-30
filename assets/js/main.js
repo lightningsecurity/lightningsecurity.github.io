@@ -23,7 +23,7 @@
 
 		$('#title-label').mouseenter(function(){
 			console.log('test')
-		  $('#lightning-logo').css('color', '#e44c65');
+		  $('#lightning-logo').css('color', '#80ADA0');
 		}).mouseout(function(){
 		  $('#lightning-logo').css('color', 'white');
 		});
