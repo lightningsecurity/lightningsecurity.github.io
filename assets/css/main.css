@@ -3409,6 +3409,10 @@
 		z-index: 21;
 	}
 
+	.banner-ico {
+		background-image: url("../../images/banner-ico.jpg") !important;
+	}
+
 		#banner:before {
 			content: '';
 			display: inline-block;
