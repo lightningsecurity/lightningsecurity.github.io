@@ -123,27 +123,22 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="../../assets/js/main.js"></script>
 			<script>
-				var email = 'jackhcable@gmail.com'
+				var email = 'jack@lightningsecurity.io'
 				function onSubmitForm() {
-					$.ajax({
-					    url: "https://formspree.io/" + email, 
-					    method: "POST",
-					    data: {
-					    	'email': $('#email').val(),
-							'_replyto': $('#email').val(),
-					    	'_subject': '[Lightning Security] Contact from ' + $('#name').val(),
-					    	'name': $('#name').val(),
-					    	'_format': 'plain',
-					    	'message': $('#message').val()
-					    },
-					    dataType: "json",
-					    success: function() {
-					    	$('#result').text('Thanks for contacting us! We will reply within 24 hours.')
-					    },
-					    error: function() {
-					    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
-					    }
-					});
+					$.ajax(
+					{
+					  url: "https://usebasin.com/f/4582fc0aa5b7.json",
+					  method: "POST",
+					  data: { message: 'From:' + $('#name').val() + '<br>' + $('#message').val(), email: $('#email').val() },
+					  dataType: "json",
+				    success: function() {
+				    	$('#result').text('Thanks for contacting us! We will reply within 24 hours.')
+				    },
+				    error: function() {
+				    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
+				    }
+					}
+			    );
 				}
 			</script>
 			<script>window.twttr = (function(d, s, id) {
