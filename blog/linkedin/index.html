@@ -1,15 +1,15 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-    <title>LinkedIn AutoFill Exposes Visitor Name, Email, Location, and Job to Third-Party Websites | Lightning Security</title>
+    <title>LinkedIn AutoFill Exposes Visitor Name, Email to Third-Party Websites | Lightning Security</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
     <link rel="stylesheet" href="../../assets/css/main.css" />
 
-    <meta name="description" content="LinkedIn AutoFill Exposes Visitor Name, Email, Location, and Job to Third-Party Websites">
+    <meta name="description" content="LinkedIn AutoFill Exposes Visitor Name, Email to Third-Party Websites">
 
-    <meta name="og:title" content="LinkedIn AutoFill Exposes Visitor Name, Email, Location, and Job to Third-Party Websites">
+    <meta name="og:title" content="LinkedIn AutoFill Exposes Visitor Name, Email to Third-Party Websites">
     <meta property="og:image" content="https://lightningsecurity.io/images/stripe.png">
 
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
@@ -44,12 +44,13 @@
         <div id="main" class="wrapper style1">
           <div class="container">
             <header class="major">
-              <h1 class="blog-title" style="font-size:1.75em">LinkedIn AutoFill Exposes Visitor Name, Email, Location, and Job to Third-Party Websites</h1>
+              <h1 class="blog-title" style="font-size:1.75em">LinkedIn AutoFill Exposes Visitor Name, Email to Third-Party Websites</h1>
               <p>Jack Cable - April 19, 2018</p>
             </header>
-<p>LinkedIn offers an <a target="_blank" href='https://www.linkedin.com/help/lms/answer/65688/linkedin-autofill-setup-guide?lang=en'>AutoFill button</a> to websites to autofill information such as a LinkedIn user&#39;s name, email address, location, and job in a website&#39;s form. This feature has been offered for several years to paying customers of LinkedIn&#39;s Lead Accelerator.</p>
+<p>Note: LinkedIn has stated that they are in the process of fixing this vulnerability.</p>
+<p>LinkedIn offers an <a target="_blank" href='https://www.linkedin.com/help/lms/answer/65688/linkedin-autofill-setup-guide?lang=en'>AutoFill button</a> to websites to autofill information such as a LinkedIn user&#39;s name, email address, phone number, location, and job in a website&#39;s form. This feature has been offered for several years to paying customers of LinkedIn&#39;s Marketing Solutions.</p>
 <p>LinkedIn states that this functionality is restricted to whitelisted websites; however, until my report, any website could abuse this functionality. In a report to LinkedIn, I demonstrated that a user&#39;s information can be unwillingly exposed to any website simply by clicking somewhere on the page. This is because the AutoFill button could be made invisible and span the entire page, causing a user clicking anywhere to send the user&#39;s information to the website.</p>
-<p>It appears as if LinkedIn accepts the risk of whitelisted websites, yet this is a major security concern. Any whitelisted website that pays for LinkedIn services is able to view sensitive information of visitors. Additionally, any of the whitelisted websites being compromised would threaten the information of all LinkedIn users to malicious hackers.</p>
+<p>It appears as if LinkedIn accepts the risk of whitelisted websites having access to this functionality, yet this is a major security concern. Any whitelisted website that pays for LinkedIn's service is able to view sensitive information of visitors, including their name, email address, phone number, location, and job. Additionally, any of the whitelisted websites being compromised would  the information of LinkedIn users to malicious hackers.</p>
 <h3>Proof of Concept</h3>
 <p>I created the following Proof of Concept in my initial report to LinkedIn. As they have fixed the regression allowing non-whitelisted websites to access information, the PoC no longer functions in its original design. You can play with how the PoC had worked when reporting it to LinkedIn at the following link: <a target="_blank" href='https://lightningsecurity.io/LinkedInDemo.html' target='_blank' >https://lightningsecurity.io/LinkedInDemo.html</a>.</p>
 <p>The potential for exploitation still exists, as any whitelisted website can access this information with a single click.</p>
@@ -76,7 +77,7 @@ function receiveMessage(event)
 }
 </code></pre>
 <h3>Bottom Line</h3>
-<p>This exposed the information of a visiting LinkedIn user to any website (until 04/10/18) and now exposes the information of any LinkedIn user to whitelisted, paying websites. This entrusts the privacy of LinkedIn users in the security of third-party websites. A compromise in any of the whitelisted websites would expose the information of LinkedIn users to malicious hackers.</p>
+<p>This exposed the information of a visiting LinkedIn user to any website (until 04/10/18) and now exposes the information of any LinkedIn user to whitelisted websites paying for LinkedIn's Marketing Solutions. This entrusts the privacy of LinkedIn users in the security of third-party websites. A compromise in any of the whitelisted websites would expose the information of LinkedIn users to malicious hackers.</p>
 <p>This directly violates LinkedIn&#39;s privacy policies, as stated in the <a target="_blank" href='https://www.linkedin.com/help/lms/answer/65699'>AutoFill FAQ</a>:</p>
 <blockquote><p>Can AutoFill &quot;blind&quot; submit form fields?</p>
 <p>This is strictly against LinkedIn&#39;s privacy policies. Some platforms enable form field data to be &quot;blind&quot; submitted without being seen by the visitor. AutoFill does not enable this.</p>
