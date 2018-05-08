@@ -59,7 +59,7 @@
 				
 				<footer id="footer">
 					<ul class="icons">
-						<li><a href="mailto:jackhcable@gmail.com" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+						<li><a href="mailto:jack@lightningsecurity.io" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
 					</ul>
 					<ul class="copyright">
 						<li>&copy; Jack Cable LLC. All rights reserved.</li>
@@ -77,25 +77,6 @@
 			<script src="../assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="../assets/js/main.js"></script>
-			<script>
-				var email = 'jack@lightningsecurity.io'
-				function onSubmitForm() {
-					$.ajax(
-					{
-					  url: "https://usebasin.com/f/4582fc0aa5b7.json",
-					  method: "POST",
-					  data: { message: 'From:' + $('#name').val() + '<br>' + $('#message').val(), email: $('#email').val() },
-					  dataType: "json",
-				    success: function() {
-				    	$('#result').text('Thanks for contacting us! We will reply within 24 hours.')
-				    },
-				    error: function() {
-				    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
-				    }
-					}
-			    );
-				}
-			</script>
 
 	</body>
 </html>

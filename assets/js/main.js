@@ -28,6 +28,9 @@
 		  $('#lightning-logo').css('color', 'white');
 		});
 
+
+		email = 'jack@lightningsecurity.io'
+
 		// Disable animations/transitions until the page has loaded.
 			$body.addClass('is-loading');
 
@@ -35,6 +38,32 @@
 				window.setTimeout(function() {
 					$body.removeClass('is-loading');
 				}, 0);
+
+				onSubmitForm = function() {
+					if ($('#email').val() == '') {
+			    	return $('#result').text('Email is not valid.');
+					}
+					if ($('#name').val() == '') {
+			    	return $('#result').text('Name must not be blank.');
+					}
+					if ($('#message').val() == '') {
+			    	return $('#result').text('Message must not be blank.');
+					}
+					$.ajax(
+					{
+					  url: "https://usebasin.com/f/4582fc0aa5b7.json",
+					  method: "POST",
+					  data: { message: 'From: ' + $('#name').val() + ' \r\n| \r\n' + $('#message').val() + ' \r\n| \r\nReferrer: ' + window.location.href, email: $('#email').val() },
+					  dataType: "json",
+				    success: function() {
+				    	$('#result').text('Thanks for contacting us! We will reply within 24 hours.')
+				    },
+				    error: function() {
+				    	$('#result').html('Error sending message, please try again or email <a style="color:white" href="mailto:' + email + '">' + email + '</a>.')
+				    }
+					}
+			    );
+				}
 			});
 
 		// Touch mode.
