@@ -1,4 +1,4 @@
 This is a Brave Payments publisher verification file.
 
 Domain: lightningsecurity.io 
-Token: 9b79345dd48e0a4371904de13682cb67e66ec8a3239e9f8577016bee2159cd1e
+Token: 2305ca6b254201dd8363f9e73f6a63b9c3f1ef6ac1d0aa1386565eb5f62fe0c0
